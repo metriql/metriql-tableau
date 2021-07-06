@@ -17,7 +17,10 @@ The library expects `stdin` for the metriql metadata and outputs a TDS file to `
 curl http://metriql-server.com/api/v0/metadata | metriql-tableau --metriql-url http://metriql-server.com --dataset your_dataset create-tds > your_dataset.tds
 ```
 
-You can use `--file` argument instead of reading the metadata from `stdin` as an alternative. The only command is `create-tds` for now.
+You can use `--file` argument instead of reading the metadata from `stdin` as an alternative.
+You can use `--out` argument to create a file instead of printing the TDS file to `stdout` as an alternative.
+
+The only command is `create-tds` for now.
 
 ### How does it work?
 

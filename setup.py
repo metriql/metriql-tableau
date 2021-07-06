@@ -28,6 +28,7 @@ setup(
     url="https://github.com/metriql/metriql-tableau",
     license="MIT License",
     packages=find_packages(exclude=["tests"]),
+    package_data={'metriql2tableau': ['**.tds']},
     test_suite="tests",
     scripts=["metriql2tableau/bin/metriql-tableau"],
     tests_require=test_requires,

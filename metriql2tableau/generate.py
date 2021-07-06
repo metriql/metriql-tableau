@@ -51,7 +51,7 @@ class GenerateTDS:
         if output_file is not None:
             source_tds._datasourceTree.write(output_file, encoding="utf-8", xml_declaration=True)
         else:
-            sys.stdout.buffer.write("<?xml version='1.0' encoding='utf-8'?>\n")
+            sys.stdout.buffer.write(str.encode("<?xml version='1.0' encoding='utf-8'?>\n"))
             sys.stdout.buffer.write(tostring(source_tds._datasourceTree._root))
 
     @staticmethod

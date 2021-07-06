@@ -4,13 +4,11 @@ from .metadata import MetriqlMetadata
 from .generate import GenerateTDS
 import sys
 
-__version__ = "0.2-incomplete"
+__version__ = "0.3"
 
 
 def main(args: list = None):
-    parser = argparse.ArgumentParser(
-        description="Generates Tableau TDS files for metriql datasets"
-    )
+    parser = argparse.ArgumentParser(description="Generates Tableau TDS files for metriql datasets")
 
     parser.add_argument("command", choices=["create-tds"], help="command to execute")
 
