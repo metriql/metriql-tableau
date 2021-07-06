@@ -1,4 +1,6 @@
-from xml.etree.ElementTree import Element
+import sys
+from xml import etree
+from xml.etree.ElementTree import Element, tostring
 import os
 from .metadata import MetriqlMetadata
 from tableaudocumentapi import Datasource
@@ -12,7 +14,7 @@ class GenerateTDS:
     def __init__(self, metadata: MetriqlMetadata) -> None:
         self.metadata = metadata
 
-    def generate(self, dataset_name):
+    def generate(self, dataset_name, output_file: str):
         dataset = self.metadata.get_dataset(dataset_name)
         source_tds = Datasource.from_file(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'boilerplate.tds'))
         datasource_xml = source_tds._datasourceXML
@@ -45,7 +47,12 @@ class GenerateTDS:
         datasource_xml.append(field)
 
         self.indent(source_tds._datasourceXML)
-        source_tds._datasourceTree.write('fff.tds', encoding="utf-8", xml_declaration=True)
+
+        if output_file is not None:
+            source_tds._datasourceTree.write(output_file, encoding="utf-8", xml_declaration=True)
+        else:
+            sys.stdout.buffer.write("<?xml version='1.0' encoding='utf-8'?>\n")
+            sys.stdout.buffer.write(tostring(source_tds._datasourceTree._root))
 
     @staticmethod
     def _get_field_category(field, relation):

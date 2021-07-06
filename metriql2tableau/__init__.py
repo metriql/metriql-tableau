@@ -1,6 +1,5 @@
 import argparse
 import json
-import logging
 from .metadata import MetriqlMetadata
 from .generate import GenerateTDS
 import sys
@@ -9,10 +8,6 @@ __version__ = "0.2-incomplete"
 
 
 def main(args: list = None):
-    logging.basicConfig(
-        format="%(asctime)s - %(levelname)s - %(message)s", level=logging.INFO
-    )
-
     parser = argparse.ArgumentParser(
         description="Generates Tableau TDS files for metriql datasets"
     )
@@ -25,6 +20,8 @@ def main(args: list = None):
 
     parser.add_argument("--file", help="source of the metadata file. if not set, the source is stdin")
 
+    parser.add_argument("--out", help="target location for TDS file. if not set, the source is stdout")
+
     parsed = parser.parse_args(args=args)
     if parsed.command == "create-tds":
         if parsed.file is not None:
@@ -32,4 +29,4 @@ def main(args: list = None):
         else:
             source = sys.stdin.readline()
         metriql_metadata = MetriqlMetadata(parsed.metriql_url, json.loads(source))
-        GenerateTDS(metriql_metadata).generate(parsed.dataset)
+        GenerateTDS(metriql_metadata).generate(parsed.dataset, parsed.out)
