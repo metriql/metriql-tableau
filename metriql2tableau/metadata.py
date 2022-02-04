@@ -51,7 +51,10 @@ class MetriqlMetadata:
         return fields
 
     def get_dataset(self, name):
-        return next(filter(lambda d: d.get('name') == name, self._datasets))
+        datasets = list(filter(lambda d: d.get('name') == name, self._datasets))
+        if len(datasets) == 0:
+            raise Exception("Dataset {} not found", name)
+        return datasets[0]
 
     @staticmethod
     def _get_field_by_name(fields, name):

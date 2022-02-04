@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<datasource formatted-name="metriql" inline="true" version="18.1">
-
+<datasource formatted-name="metriql" inline="true" version="18.1" xmlns:user="http://www.tableausoftware.com/xml/user">
         <connection class="federated">
         <named-connections>
           <named-connection name="metriql">
@@ -126,5 +125,4 @@
         </named-connections>
         <relation connection="metriql" name="orders" table="[public].[orders]" type="table" />
       </connection>
-
 </datasource>
