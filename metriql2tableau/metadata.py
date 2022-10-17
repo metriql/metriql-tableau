@@ -46,7 +46,10 @@ class MetriqlMetadata:
 
         for relation in source_dataset.get('relations'):
             relation_dataset = self.get_dataset(relation.get('modelName'))
-            self._populate_fields(fields, relation_dataset.get(field_type), relation)
+            relation_fields = relation_dataset.get(field_type)
+            if relation.get('fields') is not None:
+                relation_fields = filter(lambda elem: elem.get('name') in relation.get('fields'), relation_fields)
+            self._populate_fields(fields, relation_fields, relation)
 
         return fields
 
@@ -64,4 +67,5 @@ class MetriqlMetadata:
     def _populate_fields(fields, dataset_fields, relation):
         field_prefix = "{}.".format(relation.get('name')) if relation is not None else ""
         for field in dataset_fields:
-            fields[field_prefix + field.get('name')] = field, relation
+            if field.get('hidden') is not True:
+                fields[field_prefix + field.get('name')] = field, relation

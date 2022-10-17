@@ -17,7 +17,6 @@ class GenerateTDS:
         dataset = self.metadata.get_dataset(dataset_name)
         source_tds = Datasource.from_file(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'boilerplate.tds'))
         datasource_xml = source_tds._datasourceXML
-        datasource_xml.attrib["xmlns:user"] = "http://www.tableausoftware.com/xml/user"
 
         url = self.metadata.get_url()
         connection = source_tds.connections[0]
@@ -160,7 +159,7 @@ class GenerateTDS:
         if field_type is None:
             return None
 
-        if field_type in ['timestamp', 'date']:
+        if field_type in ['timestamp', 'date', 'time']:
             return "string"
 
         if field_type in ['boolean', 'integer', 'boolean', 'string']:
@@ -168,8 +167,6 @@ class GenerateTDS:
 
         if field_type in ['double', 'long']:
             return 'real'
-
-        raise Exception("Unknown type {}".format(field_type))
 
     @staticmethod
     def _convert_to_tableau_expression(expression):

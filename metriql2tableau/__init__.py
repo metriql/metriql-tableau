@@ -4,7 +4,7 @@ from .metadata import MetriqlMetadata
 from .generate import GenerateTDS
 import sys
 
-__version__ = "0.4"
+__version__ = "0.7"
 
 
 def main(args: list = None):
